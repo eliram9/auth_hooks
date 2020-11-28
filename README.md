@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# React hooks & Firebase authentication (Credit to Web Dev Simplified on YouTube).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
