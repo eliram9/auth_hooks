@@ -12,10 +12,16 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
+    const [loading, setLoading] = useState(true); // If we have already a signed up user (from firebase local storage)
 
     // Signup function that takes two arguments (email & password) and use the auth module from firebase.js
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password);
+    }
+
+    // Login function same as the signup func.
+    function login(email, password) {
+        return auth.signInWithEmailAndPassword(email, password);  
     }
 
     useEffect(() => {
@@ -24,6 +30,7 @@ export default function AuthProvider({ children }) {
            the listener after the user signed up (prevent this function to run over and over). */   
         const unsubscribe =  auth.onAuthStateChanged(user => {
             setCurrentUser(user);
+            setLoading(false); // When we are done loading the signup page turn it to false without the inital user in firebase local storage. 
             // console.log('CURRENT USER: ', user);
             }); 
 
@@ -33,13 +40,15 @@ export default function AuthProvider({ children }) {
 
     const value = {
         currentUser,
-        signup
+        signup,
+        login
     }
 
     return (
         // Passing "value" that contains object with auth informantion 
         <AuthContext.Provider value={value}>
-            {children}
+            {/* Simple check, if it's loading don't render children yet */}
+            {!loading && children}
         </AuthContext.Provider>
     );
 }

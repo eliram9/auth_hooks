@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 
-import { useAuth } from '../contexts/AuthProvider'
+import { useAuth } from '../contexts/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [passwordErrorLength, setPasswordErrorLength] = useState('')
     const [success, setSuccess] = useState('')
@@ -15,7 +16,7 @@ const Signup = () => {
     async function handleSubmit(evt) {
         evt.preventDefault();
         
-        // -- VALIDATION CHECKS -- \\
+        // -- PRE CONTIDITIONS - VALIDATION CHECKS -- \\
         // Password length must be minimun 8 characters long
         if (passwordRef.current.value.toString().length && confirmPasswordRef.current.value.toString().length <= 7  ) {
             return setPasswordErrorLength("Password must be at least 8 characters long"); 
@@ -41,7 +42,6 @@ const Signup = () => {
     return ( 
         <div>
             <h4 className="display-4 text-center">Sign Up</h4>
-            {JSON.stringify(currentUser && currentUser.email)}
 
             {/* ALERTS */}
             {/* Both passwords dont match */}
@@ -58,7 +58,7 @@ const Signup = () => {
                             <h4>Great,</h4>
                                 <span>{success}</span>
                         </div>}
-                        
+
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -92,7 +92,9 @@ const Signup = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary w-100" disabled={loading}>Sign Up</button>
-                <div>Already have an account? Login</div>
+                <div className="w-100 text-center mt-2">
+                    Have an account? <Link to="/login">Login</Link>
+                </div>
             </form>
         </div>
     );
