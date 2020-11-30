@@ -21,13 +21,13 @@ const Login = () => {
             setError('');
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value);
-            // if the login was successful, useHistory gives the access to "history instance" that we want to navigate
-            history.push("/");
         } 
             catch {
             setError("Failed to login!")
         }
         setLoading(false);
+        // If the login was successful, useHistory gives the access to "history instance" that we want to navigate
+        history.push("/");
     }
 
     return ( 
@@ -65,10 +65,15 @@ const Login = () => {
                 </div>
                 
                 <button type="submit" className="btn btn-primary w-100" disabled={loading}>Login</button>
-                <div className="w-100 text-center mt-2">
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
-                </div>
-            </form>
+            </form>    
+
+            <div className="w-100 text-center mt-2">
+                Don't have an account? <Link to="/signup">Sign Up</Link>
+            </div>
+            <div className="w-100 text-center mt-2">
+                or <Link to="/forgot-password">Forgot Password</Link>
+            </div>
+            
         </div>
     );
 }

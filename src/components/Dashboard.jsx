@@ -16,7 +16,6 @@ const Dashboard = () => {
         } catch {
             setError('Faild to logout');
         }
-
     }
 
     return ( 
