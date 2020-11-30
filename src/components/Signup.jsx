@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
 
 import { useAuth } from '../contexts/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Signup = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
     const { signup } = useAuth();
+    const history = useHistory();
     const [error, setError] = useState('');
     const [passwordErrorLength, setPasswordErrorLength] = useState('')
     const [success, setSuccess] = useState('')
@@ -31,6 +32,8 @@ const Signup = () => {
             setPasswordErrorLength('');
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value);
+            // if the login was successful, useHistory gives the access to "history instance" that we want to navigate
+            history.push("/");
         } 
             catch {
             setError("Failed to create an account!")
@@ -71,6 +74,7 @@ const Signup = () => {
                     />
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else 😜</small>
                 </div>
+
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input type="password" 

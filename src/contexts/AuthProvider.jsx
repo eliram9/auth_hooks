@@ -24,6 +24,11 @@ export default function AuthProvider({ children }) {
         return auth.signInWithEmailAndPassword(email, password);  
     }
 
+    // Logout function
+    function logout() {
+        return auth.signOut();
+    }
+
     useEffect(() => {
         /* This Firebase's function is a listener for any authentication status changes the onAuthStateChanged function will be fired, 
            the user parameter can be the current user or null (by default). Also, the unsubscribe will make sure to unsubscribe us from
@@ -41,7 +46,8 @@ export default function AuthProvider({ children }) {
     const value = {
         currentUser,
         signup,
-        login
+        login,
+        logout
     }
 
     return (
