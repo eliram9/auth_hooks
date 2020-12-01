@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useAuth } from '../contexts/AuthProvider';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Dashboard = () => {
     const [error, setError] = useState('');
@@ -29,7 +29,8 @@ const Dashboard = () => {
                               </div>}
                     <h3 className="card-title">Profile</h3>
                     <h6 className="card-subtitle mb-2 text-muted"><strong>User Email: </strong>{currentUser.email}</h6>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p className="card-text">💥<strong> You are loggen in!</strong>💥</p>
+                    <Link to="/update-profile">Update Profile</Link>
                     <button type="button" 
                             onClick={handleLogout}
                             className="btn btn-outline-primary btn-sm">

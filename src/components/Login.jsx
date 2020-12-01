@@ -21,13 +21,13 @@ const Login = () => {
             setError('');
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value);
+            setLoading(false);
+            // If the login was successful, useHistory gives the access to "history instance" that we want to navigate
+            history.push("/");
         } 
             catch {
             setError("Failed to login!")
-        }
-        setLoading(false);
-        // If the login was successful, useHistory gives the access to "history instance" that we want to navigate
-        history.push("/");
+        }   
     }
 
     return ( 
@@ -35,7 +35,7 @@ const Login = () => {
             <h4 className="display-4 text-center">Login</h4>
 
             {/* ALERTS */}
-            {/* Successful */}
+            {/* Error - can't login */}
             {error && <div className="alert alert-danger alert-dismissible fade show" role="alert">{error}
                         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
